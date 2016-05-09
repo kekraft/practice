@@ -57,19 +57,51 @@ bool test_tree(){
 	std::string fstring = "tree_data_1.txt";
 
 	std::cout << "Testing tree...\n";
+	Tree tree = Tree();
+	float dist_thresh = 0.001;
+
+	/** Reads in the file with the test tree data.
+	  This expects the first line of the file to be a comment line.
+	  The other lines are expected to be two integers seperated by a space.
+	  The first int is the node data, the second is the nodes parent data.
+	  At this point, the tree is assumed to have unique data entries.
+	  If an integer is -999, then this is considered to be null and is set as the root
+	  */
 	std::cout << "Reading file " << fstring;
 
 	std::ifstream f;
 	f.open(fstring);
 	std::string line;
+	std::getline(f, line); // Eat the comment line
 	while (!f.eof()){
 		std::getline(f, line);
-		std::cout << line << std::endl;
+		// std::cout << std::endl << line << std::endl;
 		std::istringstream iss(line);
 		int a,b;
-		char delimeter;
+		iss >> a >> b; 
+		// iss >> b;
+		std::cout << std::endl << "A: " << a << "  B: " << b << std::endl;
+
+		Node n = Node();
+		n.set_data(a);
+		std::shared_ptr<Node> n_ptr = std::make_shared<Node>(n);
+
+		std::shared_ptr<Node> p_ptr;
+		if (b == -999) {
+			p_ptr = nullptr;
+			
+		} else {
+			p_ptr = tree.get_node(b, dist_thresh);
+		}
 		
+		tree.insert_node(n_ptr, p_ptr);
+		n.print();
+
 	}
+
+	tree.print();
+
+
 
 }
 

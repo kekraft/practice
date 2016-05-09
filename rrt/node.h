@@ -8,7 +8,7 @@ class Node {
 	std::vector<std::shared_ptr<Node>> children;
 	std::shared_ptr<Node> parent = nullptr;
 	int num_children = 0;
-	int max_children = 2;
+	int max_children = 5;
 	float data = 0.0;
 
 public:
