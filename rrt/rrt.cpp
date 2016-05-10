@@ -1,22 +1,65 @@
 #include <iostream>
 #include <string>
+#include <random>
+#include <fstream>
+#include <sstream>
 
-/** Simple structure for defining a 3D point and its value */
-struct Point{
-	float x;
-	float y;
-	float z;
-	float val;
+#include "rrt_tree.h"
 
-	void print(){
-		std::cout << "Point: (" << x << ", " << y << ", " << z << ")\n";
+
+int main(int argc, char const *argv[]){
+
+	float start_x, start_y, start_z;
+	float goal_x, goal_y, goal_z;
+
+	std::cout << "\nInput start x: ";
+	std::cin >> start_x;
+	std::cout << "\nInput start y: ";
+	std::cin >> start_y;
+	std::cout << "\nInput start z: ";
+	std::cin >> start_z;
+
+	std::cout << "\n\nInput goal x: ";
+	std::cin >> goal_x;
+	std::cout << "\nInput goal y: ";
+	std::cin >> goal_y;
+	std::cout << "\nInput goal z: ";
+	std::cin >> goal_z;
+
+	unsigned int max_pts;
+	std::cout << "\n\nMax pts: ";
+	std::cin >> max_pts;
+
+	float delta;
+	std::cout << "\n\nDelta dist: ";
+	std::cin >> delta;
+
+	float min_space, max_space;
+	std::cout << "\n\nMin space pt (for box): ";
+	std::cin >> min_space;
+	std::cout << "Max space pt (for box): ";
+	std::cin >> max_space;
+
+	Point goal = Point(goal_x, goal_y, goal_z);
+
+	std::cout << "\n\n\n";
+	start.print();
+	goal.print();
+
+	Tree t = Tree();
+	t.insert_node(start_x, start_y, start_z);
+
+	for (unsigned int i = 0; i < max_pts; i++){
+		// get random pt in search space
+		Point rand_pt = Point::get_random_point(min_space, max_space);
+
+		// pick closest pt in tree
+		Node n = t.get_closest_node(rand_pt);
 	}
-};
 
-void rrt_search(Point start, Point goal, float search_dist = 0.2){
-	// Search tree...
-	// search_tree = 
-
+	return 0;
 }
+
+
 
 

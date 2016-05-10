@@ -27,10 +27,11 @@ public:
 
 	void print();
 
-	std::shared_ptr<Node> get_node(float data, float equiv_thresh); // Finds the first node with this as the data, and returns the pointer to it
+	std::shared_ptr<Node> get_node(Point p, float equiv_thresh); // Finds the first node with this as the data, and returns the pointer to it
 	bool depth_first_search(std::shared_ptr<Node> goal_node, bool output); // Does a dfs search for the goal node, returns true if found, false o.w.
 	void depth_first_traversal(bool output); // Does a dfs traversal on the entire tree
 
+	std::shared_ptr<Node> get_closest_node(Point p);
 
 	// iterator through tree
 

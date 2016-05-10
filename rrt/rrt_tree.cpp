@@ -79,7 +79,7 @@ void Tree::print(void){
 	this->depth_first_traversal(true);
 };
 
-std::shared_ptr<Node> Tree::get_node(float goal_data , float equiv_thresh = 0.001){
+std::shared_ptr<Node> Tree::get_node(Point goal_point , float equiv_thresh = 0.001){
 	
 	// queue for holding nodes to expand
 	std::shared_ptr<Node> cur;
@@ -95,8 +95,8 @@ std::shared_ptr<Node> Tree::get_node(float goal_data , float equiv_thresh = 0.00
 		//  sys.exit(-1);
 		// }
 
-		float node_data = cur->get_data();
-		if (std::abs(node_data - goal_data) < equiv_thresh){
+		Point node_point = cur->get_point();
+		if (std::abs(node_point - goal_point) < equiv_thresh){
 			return cur;
 		} else {
 			// Get the children of current node and add them to the end of the queue
@@ -112,7 +112,7 @@ std::shared_ptr<Node> Tree::get_node(float goal_data , float equiv_thresh = 0.00
 
 	}
 
-	// the goal data/node isn't found
+	// the goal point/node isn't found
 	return nullptr;
 
 
@@ -170,6 +170,23 @@ bool Tree::depth_first_search(std::shared_ptr<Node> goal_node, bool output){
 
 void Tree::depth_first_traversal(bool output){
 	this->depth_first_search(nullptr, output);
+}
+
+std::shared_ptr<Node> get_closest_node(Point p){
+	// cycle through all nodes in the tree and get dist
+	float min_dist = 99999;
+	std::shared_ptr<Node> closest = nullptr;
+
+	for (std::shared_ptr<Node> n: children){
+		dist = p - n;
+
+		if (dist < min_dist){
+			min_dist = dist;
+			closest = n;
+		}
+	}
+
+	return closest;
 }
 
 #ifdef MAIN

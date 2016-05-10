@@ -41,11 +41,11 @@ bool test_node(){
 	Node n = Node();
 	n.print();
 
-	n.set_data(10.2);
+	n.set_point(0.1, 2.1, 10.2);
 	n.print();
 
 	Node n2 = Node();
-	n2.set_data(2.0202);
+	n2.set_point(0.1, 3.3, 2.0202);
 	// n2.set_parent()
 
 	std::cout << "Done testing node.\n";
@@ -77,21 +77,25 @@ bool test_tree(){
 		std::getline(f, line);
 		// std::cout << std::endl << line << std::endl;
 		std::istringstream iss(line);
-		int a,b;
-		iss >> a >> b; 
-		// iss >> b;
-		std::cout << std::endl << "A: " << a << "  B: " << b << std::endl;
+		float a_x, a_y, a_z;
+		float b_x, b_y, b_z;
+
+		iss >> a_x >> a_y >> a_z >> b_x >> b_y >> b_z; 
+
+		// std::cout << std::endl << "A: " << a << "  B: " << b << std::endl;
+		Point node_point = Point(a_x, a_y, a_z);
+		Point parent_point = Point(b_x, b_y, b_z);
 
 		Node n = Node();
-		n.set_data(a);
+		n.set_point(node_point);
 		std::shared_ptr<Node> n_ptr = std::make_shared<Node>(n);
 
 		std::shared_ptr<Node> p_ptr;
-		if (b == -999) {
+		if ((b_x == -999) && (b_y == -999) && (b_z == -999)) {
 			p_ptr = nullptr;
-			
+
 		} else {
-			p_ptr = tree.get_node(b, dist_thresh);
+			p_ptr = tree.get_node(parent_point, dist_thresh);
 		}
 		
 		tree.insert_node(n_ptr, p_ptr);
@@ -110,8 +114,8 @@ int main(int argc, char const *argv[]){
 	std::cout << "Starting program" << std::endl;
 
 	#ifdef TEST
-	  // test_point();
-	  // test_node();
+	  test_point();
+	  test_node();
 	  test_tree();
 	#endif
 

@@ -2,6 +2,16 @@
 
 // #define MAIN
 
+
+// Node::Node : Node::Node() (float x, float y, float z){
+// 	// Node();
+// 	Point p = Point();
+// 	p.x = x;
+// 	p.y = y;
+// 	p.z = z;
+// 	this->p = p;
+// }
+
 const std::shared_ptr<Node> Node::get_parent(){
 	return this->parent;
 };
@@ -20,6 +30,7 @@ bool Node::add_child(std::shared_ptr<Node> child_node_ptr){
 		return false;	
 	}
 	this->children.push_back(child_node_ptr);
+	this->num_children ++;
 	return true;
 };
 
@@ -36,12 +47,20 @@ bool Node::has_children(){
   return (num_children > 0) ? true : false;
 };
 
-float Node::get_data(){
-	return this->data;
+Point Node::get_point(){
+	return this->point;
 };
 
-void Node::set_data(float new_data){
-	this->data = new_data;
+void Node::set_point(Point point){
+	this->point = point;
+};
+
+void Node::set_point(float x, float y, float z){
+	Point p = Point();
+	p.x = x;
+	p.y = y;
+	p.z = z;
+	this->point = p;
 };
 
 void Node::set_max_children(int max_children){
@@ -49,15 +68,25 @@ void Node::set_max_children(int max_children){
 }
 
 void Node::print(){
-	std::cout << "Node data: " << this->data << "\n";
+	std::cout << "Node point: ";
+	this->point.print();
 	if (this->parent != nullptr) {
-		std::cout << "Parent: " << this->parent->data << "\n";	
+		// std::cout << "Parent: " << this->parent->point << "\n";	
+		std::cout << "Parent: ";
+		this->parent->point.print();
 	} else {
 		std::cout << "Parent: " << " NULL" << "\n";	
 	}
 	
 	std::cout << "Total Children: " << this->num_children << "\n";
 }
+
+// ostream& operator<<(ostream& os, const Node& node)
+// {
+//     os << "Node point: " << '/' << dt.da << '/' << dt.yr;
+//     return os;
+// }
+
 
 // #ifdef MAIN
 // int main(){
