@@ -50,6 +50,8 @@ void Tree::insert_node(std::shared_ptr<Node> node_ptr, std::shared_ptr<Node> par
 }
 
 
+
+
 /**
 Remove the node ptr from the list of children, not same as deleting
 
@@ -172,13 +174,13 @@ void Tree::depth_first_traversal(bool output){
 	this->depth_first_search(nullptr, output);
 }
 
-std::shared_ptr<Node> get_closest_node(Point p){
+std::shared_ptr<Node> Tree::get_closest_node(Point p){
 	// cycle through all nodes in the tree and get dist
 	float min_dist = 99999;
 	std::shared_ptr<Node> closest = nullptr;
 
-	for (std::shared_ptr<Node> n: children){
-		dist = p - n;
+	for (std::shared_ptr<Node> n: this->get_nodes()){
+		float dist = p - n->get_point();
 
 		if (dist < min_dist){
 			min_dist = dist;

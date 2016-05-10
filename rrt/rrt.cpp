@@ -40,6 +40,7 @@ int main(int argc, char const *argv[]){
 	std::cout << "Max space pt (for box): ";
 	std::cin >> max_space;
 
+	Point start = Point(start_x, start_y, start_z);
 	Point goal = Point(goal_x, goal_y, goal_z);
 
 	std::cout << "\n\n\n";
@@ -47,7 +48,8 @@ int main(int argc, char const *argv[]){
 	goal.print();
 
 	Tree t = Tree();
-	t.insert_node(start_x, start_y, start_z);
+	std::shared_ptr<Node> null_shared_ptr;
+	t.insert_node(start, null_shared_ptr);
 
 	for (unsigned int i = 0; i < max_pts; i++){
 		// get random pt in search space
