@@ -16,9 +16,8 @@ const string Reader::get_filename(){
 void Reader::read_file_by_line(){
 	ifstream ifs {fname, ifstream::in};
 	if (ifs.good()){
-		while (!ifs.eof()){
-			string a {};
-			getline(ifs, a);
+		string a {};
+		while (getline(ifs, a)){	;
 			cout << "Got line: " << a << endl;
 		}
 	} else {
@@ -59,20 +58,28 @@ void BetterReader::better_method(){
 	cout << "fname: " << fname << endl;
 }
 
-void Reader::read_file_by_line(){
-	// ifstream ifs {fname, ifstream::in};
-	// if (ifs.good()){
-	// 	while (!ifs.eof()){
-	// 		string a {};
-	// 		getline(ifs, a);
-	// 		cout << "Got line: " << a << endl;
-	// 	}
-	// } else {
-	// 	cerr << "Error opening file: " << fname << endl;
-	// 	throw 20;
-	// }
+/**
+This function reads it one token at a time using whitespace as a delimeter
+Doesn't read one line at a time, only called that to play around with function overriding.
+*/
+void BetterReader::read_file_by_line(){
+	ifstream ifs {fname, ifstream::in};
 
-	// ifs.close();
+	if (ifs.good()){
+		cout << "outputing read data...\n";
+		while (!ifs.eof()){
+			string a {};
+			
+			ifs >> a;
+			cout << a << endl;
+		}
+	} else {
+		cerr << "Error opening file: " << fname << endl;
+		throw 20;
+	}
+
+	ifs.close();
+	cout << "Does better reading method " << endl;
 
 }
 
