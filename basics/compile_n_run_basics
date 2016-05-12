@@ -1,0 +1,8 @@
+# compiling basics
+rm ./basic
+
+echo "Compiling basics "
+g++ -std=c++11 -o basic open_file.cpp basics_driver.cpp
+
+echo "Running basics..."
+./basic

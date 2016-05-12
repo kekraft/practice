@@ -1,0 +1,11 @@
+this is basic
+text in a file
+that has line endings even
+though
+the lines have
+different ; values and lengths
+the main thing is 
+the 
+files is a text file
+with whitespace
+and endlines.
